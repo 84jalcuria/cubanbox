@@ -22,7 +22,7 @@ const Footer = () => {
           <Telegram />
         </div>
       </div>
-      <h1 className='self-center text-gray-300 text-xs font-normal tracking-tighter'>
+      <h1 className='self-center text-gray-300 text-xs font-normal tracking-tighter mb-3'>
         CUBANBOX 20201. TODOS LOS DERECHOS RESERVADOS
       </h1>
     </div>

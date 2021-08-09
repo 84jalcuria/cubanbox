@@ -24,8 +24,10 @@ const DefaultLayout = ({ children }) => {
           <div className='hidden sm:block absolute z-50 top-7  sm:right-14 '>
             <NavBarDesktop />
           </div>
+          {/*Filled*/}
+          <div className='sm:hidden w-full h-14 bg-transparent' />
           {/*Navigation Bar Mobile*/}
-          <div className='sm:hidden w-full'>
+          <div className='fixed z-50 sm:hidden w-full'>
             <NavBarMobile />
           </div>
           {/*Pages Section*/}

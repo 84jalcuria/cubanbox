@@ -1,17 +1,17 @@
-interface buttonRegisterDesktopProps {
-  onShow: () => void;
+interface buttonSignInProps {
+  onClose: () => void;
 }
 
-const ButtonRegisterDesktop = ({ onShow }: buttonRegisterDesktopProps) => {
+const ButtonSignIn = ({ onClose }: buttonSignInProps) => {
   return (
     <button
       type='button'
-      onClick={onShow}
+      onClick={() => null}
       className='focus:outline-none  bg-[#E76C4A]  active:bg-[#db5935] 
-      w-[165px] h-10 rounded-lg flex justify-center items-center space-x-1'
+          w-[230px] h-10 rounded-lg flex justify-center items-center space-x-1'
     >
       <svg
-        className='h-8 w-8 text-white transform scale-x-110'
+        className='h-6 w-6 text-white transform scale-150'
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'
@@ -20,15 +20,15 @@ const ButtonRegisterDesktop = ({ onShow }: buttonRegisterDesktopProps) => {
         <path
           strokeLinecap='round'
           strokeLinejoin='round'
-          strokeWidth={1}
-          d='M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z'
+          strokeWidth={2}
+          d='M13 7l5 5m0 0l-5 5m5-5H6'
         />
       </svg>
       <h1 className='text-white text-lg font-normal tracking-tighter uppercase'>
-        inscribirse
+        iniciar sesion
       </h1>
     </button>
   );
 };
 
-export default ButtonRegisterDesktop;
+export default ButtonSignIn;

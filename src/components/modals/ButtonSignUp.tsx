@@ -1,14 +1,14 @@
-interface buttonRegisterDesktopProps {
-  onShow: () => void;
+interface buttonRegisterProps {
+  onClose: () => void;
 }
 
-const ButtonRegisterDesktop = ({ onShow }: buttonRegisterDesktopProps) => {
+const ButtonRegister = ({ onClose }: buttonRegisterProps) => {
   return (
     <button
       type='button'
-      onClick={onShow}
+      onClick={() => null}
       className='focus:outline-none  bg-[#E76C4A]  active:bg-[#db5935] 
-      w-[165px] h-10 rounded-lg flex justify-center items-center space-x-1'
+        w-[230px] h-10 rounded-lg flex justify-center items-center space-x-1'
     >
       <svg
         className='h-8 w-8 text-white transform scale-x-110'
@@ -31,4 +31,4 @@ const ButtonRegisterDesktop = ({ onShow }: buttonRegisterDesktopProps) => {
   );
 };
 
-export default ButtonRegisterDesktop;
+export default ButtonRegister;

@@ -1,12 +1,31 @@
-const ButtonRegisterMobile = () => {
+interface buttonRegisterMobileProps {
+  onShow: () => void;
+}
+
+const ButtonRegisterMobile = ({ onShow }: buttonRegisterMobileProps) => {
   return (
     <button
       type='button'
-      className='focus:outline-none  bg-[#E76C4A] active:bg-[#e7562d] w-[95px] h-6 rounded-lg 
-        flex justify-center items-center'
+      onClick={onShow}
+      className='focus:outline-none  bg-[#E76C4A] active:bg-[#e7562d] w-[135px] h-9 rounded-lg 
+        flex justify-center items-center space-x-1'
     >
-      <h1 className='text-white text-xs font-bold tracking-tighter capitalize'>
-        registrarse
+      <svg
+        className='h-6 w-6 text-white transform scale-x-110'
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+      >
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          strokeWidth={1}
+          d='M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z'
+        />
+      </svg>
+      <h1 className='text-white text-base font-normal tracking-tighter uppercase'>
+        inscribirse
       </h1>
     </button>
   );
