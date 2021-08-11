@@ -6,6 +6,7 @@ import crossfit from '@/assets/menu/crossfit.png';
 import home from '@/assets/menu/home.png';
 import initsession from '@/assets/menu/init-session.png';
 import closesession from '@/assets/menu/close-session.png';
+import profile from '@/assets/button/signup.png';
 
 import { useUser } from '@/context/user-context';
 import { useAuthModal } from '@/context/auth-modal-context';
@@ -15,7 +16,7 @@ interface sideBarProps {
 }
 
 const SideBar = ({ onClose }: sideBarProps) => {
-  const { user } = useUser();
+  const { user, signOut } = useUser();
   const { setShowSignInModal } = useAuthModal();
   return (
     <div className='w-full h-full bg-[#262C34] flex flex-col justify-between items-center'>
@@ -41,13 +42,24 @@ const SideBar = ({ onClose }: sideBarProps) => {
       </button>
       <section className='flex-grow w-full flex flex-col justify-center items-center'>
         <div className='flex flex-col justify-center items-start'>
-          <ButtonNavBarMobile
-            caption={'inicio'}
-            fontsize={'text-base'}
-            src={home}
-            onClose={onClose}
-            selected={true}
-          />
+          {!user ? (
+            <ButtonNavBarMobile
+              caption={'inicio'}
+              fontsize={'text-base'}
+              src={home}
+              onClose={onClose}
+              selected={true}
+            />
+          ) : (
+            <ButtonNavBarMobile
+              caption={'profile'}
+              fontsize={'text-base'}
+              src={profile}
+              onClose={onClose}
+              selected={true}
+            />
+          )}
+
           <ButtonNavBarMobile
             caption={'wod diario'}
             fontsize={'text-base'}
@@ -71,7 +83,10 @@ const SideBar = ({ onClose }: sideBarProps) => {
               caption={'cerrar sesion'}
               fontsize={'text-base'}
               src={closesession}
-              onClose={onClose}
+              onClose={() => {
+                onClose();
+                signOut();
+              }}
             />
           ) : (
             <ButtonNavBarMobile

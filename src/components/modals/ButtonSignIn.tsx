@@ -1,14 +1,16 @@
 interface buttonSignInProps {
   onClose: () => void;
+  disabled: boolean;
 }
 
-const ButtonSignIn = ({ onClose }: buttonSignInProps) => {
+const ButtonSignIn = ({ onClose, disabled }: buttonSignInProps) => {
   return (
     <button
-      type='button'
+      type='submit'
+      disabled={disabled}
       onClick={() => null}
-      className='focus:outline-none  bg-[#E76C4A]  active:bg-[#db5935] 
-          w-[230px] h-10 rounded-lg flex justify-center items-center space-x-1'
+      className='focus:outline-none  bg-[#E76C4A]  active:bg-[#db5935] disabled:bg-gray-700 
+      w-full h-10 rounded-lg flex justify-center items-center space-x-1'
     >
       <svg
         className='h-6 w-6 text-white transform scale-150'

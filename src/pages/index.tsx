@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import hero from '@/assets/hero.jpg';
 import strongman from '@/assets/strongman.png';
@@ -11,9 +12,11 @@ import ButtonRegisterMobile from '@/components/ui/home/ButtonRegisterMobile';
 import Logo from '@/components/ui/Logo';
 import Title from '@/components/ui/Title';
 import ButtonRegisterDesktop from '@/components/ui/home/ButtonRegisterDesktop';
+import Modal from '@/components/modals/Modal';
 import SignUp from '@/components/modals/SignUp';
 import SignIn from '@/components/modals/SignIn';
 import { useAuthModal } from '@/context/auth-modal-context';
+import { useUser } from '@/context/user-context';
 
 export default function Home() {
   const {
@@ -22,6 +25,14 @@ export default function Home() {
     showSignInModal,
     setShowSignInModal,
   } = useAuthModal();
+  const { user } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.replace('/profile');
+    }
+  }, [user]);
 
   return (
     <>
@@ -117,16 +128,14 @@ export default function Home() {
         </section>
       </div>
       {/*-------------------------Modals-------------------------------*/}
-      {/*SignUp Modal*/}
-      <SignUp
-        show={showSignUpModal}
-        onClose={() => setShowSignUpModal(false)}
-      />
-      {/*SignIn Modal*/}
-      <SignIn
-        show={showSignInModal}
-        onClose={() => setShowSignInModal(false)}
-      />
+      <Modal show={showSignUpModal}>
+        {/*SignUp Modal*/}
+        <SignUp onClose={() => setShowSignUpModal(false)} />
+      </Modal>
+      <Modal show={showSignInModal}>
+        {/*SignIn Modal*/}
+        <SignIn onClose={() => setShowSignInModal(false)} />
+      </Modal>
     </>
   );
 }

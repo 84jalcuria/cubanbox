@@ -5,7 +5,6 @@ import SideBar from '@/components/ui/navbar/SideBar';
 
 const NavBarMobile = () => {
   const [showSideBar, setShowSideBar] = useState(false);
-  console.log(showSideBar);
   return (
     <div className='relative w-full h-14 flex justify-between items-center bg-[#262C34] px-3'>
       <div className='flex justify-center items-center space-x-2'>
