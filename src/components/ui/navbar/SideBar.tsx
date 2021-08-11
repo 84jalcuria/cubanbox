@@ -84,8 +84,8 @@ const SideBar = ({ onClose }: sideBarProps) => {
               fontsize={'text-base'}
               src={closesession}
               onClose={() => {
-                onClose();
                 signOut();
+                onClose();
               }}
             />
           ) : (
@@ -94,7 +94,7 @@ const SideBar = ({ onClose }: sideBarProps) => {
               fontsize={'text-base'}
               src={initsession}
               onClose={() => {
-                onClose();
+                //onClose();
                 setShowSignInModal(true);
               }}
             />
