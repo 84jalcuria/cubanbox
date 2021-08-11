@@ -94,7 +94,7 @@ const SignUp = ({ onClose }: signUpProps) => {
       >
         {/*Title and description*/}
         <div className='text-white '>
-          <h1 className='text-lg sm:text-lg md:text-xl font-light tracking-tighter uppercase'>
+          <h1 className='text-lg sm:text-base md:text-lg font-light tracking-tighter uppercase'>
             registrate y empieza a entrenar
           </h1>
           <h1 className='mt-1 text-sm sm:text-xm md:text-base font-light'>
