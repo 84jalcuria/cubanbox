@@ -14,7 +14,7 @@ const Modal = ({ show, children }: modalProps) => {
   }, []);
 
   const modalLayout = show && (
-    <div className='fixed z-50 inset-0 h-full flex justify-center items-center bg-gray-600/50'>
+    <div className='fixed z-50 inset-0 min-h-screen flex justify-center items-center bg-gray-600/50'>
       {children}
     </div>
   );

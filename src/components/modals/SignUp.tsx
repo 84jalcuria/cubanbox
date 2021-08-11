@@ -62,7 +62,7 @@ const SignUp = ({ onClose }: signUpProps) => {
 
   return (
     <div
-      className={`bg-[#262C34] w-[90%] h-[85%] sm:w-[370px] md:w-[450px] rounded-2xl
+      className={`bg-[#262C34] w-[90%] h-[90%] sm:w-[400px] md:w-[450px] rounded-2xl
         flex flex-col justify-between items-center shadow-2xl ${
           loading ? 'animate-pulse' : null
         }`}
@@ -93,11 +93,11 @@ const SignUp = ({ onClose }: signUpProps) => {
         className='w-full flex-grow pb-8 pt-5 px-8 sm:px-16 flex flex-col justify-between items-center'
       >
         {/*Title and description*/}
-        <div className='text-white '>
-          <h1 className='text-lg sm:text-base md:text-lg font-light tracking-tighter uppercase'>
+        <div className='text-white w-full'>
+          <h1 className='text-sm sm:text-lg font-light tracking-tighter uppercase'>
             registrate y empieza a entrenar
           </h1>
-          <h1 className='mt-1 text-sm sm:text-xm md:text-base font-light'>
+          <h1 className='mt-1 text-xs sm:text-sm font-light'>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit
           </h1>
         </div>
@@ -105,6 +105,7 @@ const SignUp = ({ onClose }: signUpProps) => {
         <div className='w-full flex flex-col justify-between space-y-7'>
           {/*-----------------SignUp Inputs---------------------------*/}
           <InputEmail
+            placeholder='Correo electronico'
             disabled={loading}
             label='email'
             register={register}
@@ -115,6 +116,7 @@ const SignUp = ({ onClose }: signUpProps) => {
             error={errors.email}
           />
           <InputUser
+            placeholder='Usuario'
             disabled={loading}
             label='username'
             register={register}
@@ -128,6 +130,7 @@ const SignUp = ({ onClose }: signUpProps) => {
             error={errors.username}
           />
           <InputPasssword
+            placeholder='Contraseña'
             disabled={loading}
             label='password'
             register={register}
@@ -143,6 +146,7 @@ const SignUp = ({ onClose }: signUpProps) => {
             error={errors.password}
           />
           <InputPasssword
+            placeholder='Confirmar contraseña'
             disabled={loading}
             label='confirmpassword'
             register={register}

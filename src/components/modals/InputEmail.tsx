@@ -4,6 +4,7 @@ import email from '@/assets/input/email.png';
 import ErrorMessage from '@/components/modals/ErrorMessage';
 
 const InputEmail = ({
+  placeholder,
   disabled,
   label,
   error,
@@ -17,7 +18,7 @@ const InputEmail = ({
         type='email'
         {...register(label, { required, pattern })}
         disabled={disabled}
-        placeholder='Correo electronico'
+        placeholder={placeholder}
         className={`w-full py-2 px-12 bg-transparent focus:outline-none focus:bg-transparent border-[1px] ${
           error ? 'border-red-600' : 'border-white'
         } 

@@ -5,7 +5,7 @@ interface serverErrorMessage {
 
 const ErrorMessage = ({ message, fontsize }: serverErrorMessage) => {
   return (
-    <h1 className={`text-red-600 ${fontsize} font-semibold mt-1 ml-1 pb-2`}>
+    <h1 className={`text-red-600 ${fontsize} font-normal mt-1 ml-1 pb-2`}>
       {message}
     </h1>
   );

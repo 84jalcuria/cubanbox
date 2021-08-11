@@ -79,17 +79,18 @@ const SignIn = ({ onClose }: signInProps) => {
           />
         </svg>
       </button>
-      {/*Form SignUp*/}
+      {/*Form SignIp*/}
       <form
+        className='w-full flex-grow mb-8 mt-3 px-8 sm:px-16 flex flex-col justify-between items-center'
         onSubmit={handleSubmit(handleSignIn)}
-        className='w-full flex-grow mb-8 mt-7 px-8 sm:px-16 flex flex-col justify-between items-center'
       >
         {/*Logo*/}
-        <div className='bg-white w-28 h-28 rounded-full' />
-
+        <div className='bg-white w-24 h-24 rounded-full' />
+        {/*Inputs*/}
         <div className='w-full flex flex-col justify-between space-y-7 '>
           {/*-----------------SignUp Inputs---------------------------*/}
           <InputEmail
+            placeholder='Correo electronico'
             disabled={loading}
             label='email'
             register={register}
@@ -100,6 +101,7 @@ const SignIn = ({ onClose }: signInProps) => {
             error={errors.email}
           />
           <InputPasssword
+            placeholder='Contraseña'
             disabled={loading}
             label='password'
             register={register}
@@ -119,7 +121,6 @@ const SignIn = ({ onClose }: signInProps) => {
         {message?.type === 'error' && (
           <ErrorMessage fontsize='text-sm' message={message.content} />
         )}
-
         {/*---------------------SignUp Button-----------------------*/}
         <ButtonSignIn onClose={onClose} disabled={loading} />
       </form>

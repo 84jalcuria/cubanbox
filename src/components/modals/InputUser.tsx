@@ -2,14 +2,22 @@ import Image from 'next/image';
 import user from '@/assets/input/user.png';
 import ErrorMessage from '@/components/modals/ErrorMessage';
 
-const InputUser = ({ disabled, label, register, required, error, pattern }) => {
+const InputUser = ({
+  placeholder,
+  disabled,
+  label,
+  register,
+  required,
+  error,
+  pattern,
+}) => {
   return (
     <div className='relative w-full flex flex-col justify-center items-start'>
       <input
         type='text'
         {...register(label, { required, pattern })}
         disabled={disabled}
-        placeholder='Usuario'
+        placeholder={placeholder}
         className={`w-full py-2 px-12 bg-transparent focus:outline-none border-[1px] ${
           error ? 'border-red-600' : 'border-white'
         } 

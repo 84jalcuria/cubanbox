@@ -6,6 +6,7 @@ import view from '@/assets/input/view.png';
 import ErrorMessage from '@/components/modals/ErrorMessage';
 
 const InputPassword = ({
+  placeholder,
   disabled,
   label,
   error,
@@ -21,7 +22,7 @@ const InputPassword = ({
         type={viewPassword ? 'text' : 'password'}
         {...register(label, { required, validate, minLength })}
         disabled={disabled}
-        placeholder='Contraseña'
+        placeholder={placeholder}
         className={`w-full py-2 px-12 bg-transparent focus:outline-none border-[1px] ${
           error ? 'border-red-600' : 'border-white'
         }  
