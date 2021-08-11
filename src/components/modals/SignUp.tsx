@@ -55,7 +55,7 @@ const SignUp = ({ onClose }: signUpProps) => {
       /*Here create profile record for user */
       setUser(user);
       /*Close Modal*/
-      onClose();
+      //onClose();
     }
     setLoading(false);
   };
