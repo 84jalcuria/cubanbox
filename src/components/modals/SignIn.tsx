@@ -21,10 +21,9 @@ interface signInProps {
 }
 
 const SignIn = ({ onClose }: signInProps) => {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);
-  const { signIn } = useUser();
+  const { user, signIn } = useUser();
   const router = useRouter();
   const {
     register,
@@ -46,7 +45,7 @@ const SignIn = ({ onClose }: signInProps) => {
     if (error) {
       setMessage({ type: 'error', content: error.message });
     } else {
-      setUser(user);
+      //setUser(user);
       /*Close Modal*/
       onClose();
     }
