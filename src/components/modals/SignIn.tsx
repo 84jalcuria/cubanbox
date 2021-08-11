@@ -47,7 +47,7 @@ const SignIn = ({ onClose }: signInProps) => {
     } else {
       //setUser(user);
       /*Close Modal*/
-      onClose();
+      //onClose();
     }
     setLoading(false);
   };
