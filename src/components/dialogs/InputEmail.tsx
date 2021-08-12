@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import email from '@/assets/input/email.png';
-import ErrorMessage from '@/components/modals/ErrorMessage';
 
 const InputEmail = ({
   placeholder,
