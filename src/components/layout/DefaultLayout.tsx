@@ -15,13 +15,13 @@ const DefaultLayout = ({ children }) => {
         objectFit='cover'
       />
       {/*Body Section*/}
-      <div className='relative z-50 bg-transparent flex flex-col justify-center items-center sm:py-16'>
+      <div className='relative z-10 bg-transparent flex flex-col justify-center items-center sm:py-16'>
         <div
           className='relative flex-grow w-full sm:w-10/12 xl:w-8/12 sm:rounded-3xl sm:shadow-2xl 
           flex flex-col justify-between items-stretch bg-transparent'
         >
           {/*Navigation Bar Desktop*/}
-          <div className='hidden sm:block absolute z-50 top-7  sm:right-14 '>
+          <div className='hidden sm:block absolute z-20 top-7  sm:right-14 '>
             <NavBarDesktop />
           </div>
           {/*Filled*/}

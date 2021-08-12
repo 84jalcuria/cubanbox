@@ -9,7 +9,7 @@ import closesession from '@/assets/menu/close-session.png';
 import profile from '@/assets/button/signup.png';
 
 import { useUser } from '@/context/user-context';
-import { useAuthModal } from '@/context/auth-modal-context';
+import { toggleSignInDialog } from '@/state/dialog';
 
 interface sideBarProps {
   onClose: () => void;
@@ -17,7 +17,6 @@ interface sideBarProps {
 
 const SideBar = ({ onClose }: sideBarProps) => {
   const { user, signOut } = useUser();
-  const { setShowSignInModal } = useAuthModal();
   return (
     <div className='w-full h-full bg-[#262C34] flex flex-col justify-between items-center'>
       <button
@@ -95,7 +94,7 @@ const SideBar = ({ onClose }: sideBarProps) => {
               src={initsession}
               onClose={() => {
                 onClose();
-                setShowSignInModal(true);
+                toggleSignInDialog(true);
               }}
             />
           )}

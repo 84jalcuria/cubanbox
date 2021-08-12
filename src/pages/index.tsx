@@ -12,21 +12,16 @@ import ButtonRegisterMobile from '@/components/ui/home/ButtonRegisterMobile';
 import Logo from '@/components/ui/Logo';
 import Title from '@/components/ui/Title';
 import ButtonRegisterDesktop from '@/components/ui/home/ButtonRegisterDesktop';
-import Modal from '@/components/modals/Modal';
-import SignUp from '@/components/modals/SignUp';
-import SignIn from '@/components/modals/SignIn';
-import { useAuthModal } from '@/context/auth-modal-context';
 import { useUser } from '@/context/user-context';
+import SignUpDialog from '@/components/dialogs/SignUpDialog';
+import SignInDialog from '@/components/dialogs/SignInDialog';
+import { useSignUpDialog, useSignInDialog } from '@/state/dialog';
 
 export default function Home() {
-  const {
-    showSignUpModal,
-    setShowSignUpModal,
-    showSignInModal,
-    setShowSignInModal,
-  } = useAuthModal();
   const { user } = useUser();
   const router = useRouter();
+  const [isOpenSignUpDialog, toggleSignUpDialog] = useSignUpDialog();
+  const [isOpenSignInDialog] = useSignInDialog();
 
   useEffect(() => {
     if (user) {
@@ -48,7 +43,7 @@ export default function Home() {
           />
           {/*Button Register Mobile*/}
           <div className='sm:hidden absolute left-4 bottom-[70px]'>
-            <ButtonRegisterMobile onShow={() => setShowSignUpModal(true)} />
+            <ButtonRegisterMobile onShow={() => toggleSignUpDialog(true)} />
           </div>
           {/*Logo Title Button Register Desktop*/}
           <div className='hidden sm:flex absolute left-14 top-28 flex-col justify-center items-start'>
@@ -59,7 +54,7 @@ export default function Home() {
               <Title size={'text-7xl'} />
             </div>
             <div className='ml-20 mt-16 flex justify-center items-center space-x-5'>
-              <ButtonRegisterDesktop onShow={() => setShowSignUpModal(true)} />
+              <ButtonRegisterDesktop onShow={() => toggleSignUpDialog(true)} />
             </div>
           </div>
         </section>
@@ -128,14 +123,9 @@ export default function Home() {
         </section>
       </div>
       {/*-------------------------Modals-------------------------------*/}
-      <Modal show={showSignUpModal}>
-        {/*SignUp Modal*/}
-        <SignUp onClose={() => setShowSignUpModal(false)} />
-      </Modal>
-      <Modal show={showSignInModal}>
-        {/*SignIn Modal*/}
-        <SignIn onClose={() => setShowSignInModal(false)} />
-      </Modal>
+      {isOpenSignUpDialog && <SignUpDialog />}
+      {isOpenSignInDialog && <SignInDialog />}
+      {/*-------------------------------------------------------------*/}
     </>
   );
 }

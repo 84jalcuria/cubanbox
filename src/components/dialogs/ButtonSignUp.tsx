@@ -2,16 +2,14 @@ import Image from 'next/image';
 import signup from '@/assets/button/signup.png';
 
 interface buttonRegisterProps {
-  onClose: () => void;
   disabled: boolean;
 }
 
-const ButtonRegister = ({ onClose, disabled }: buttonRegisterProps) => {
+const ButtonRegister = ({ disabled }: buttonRegisterProps) => {
   return (
     <button
       type='submit'
       disabled={disabled}
-      onClick={() => null}
       className='focus:outline-none  bg-[#E76C4A]  active:bg-[#db5935] disabled:bg-gray-700 
        w-full h-10 rounded-lg flex justify-center items-center space-x-1'
     >
