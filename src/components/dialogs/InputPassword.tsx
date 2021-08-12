@@ -3,7 +3,6 @@ import Image from 'next/image';
 import password from '@/assets/input/password.png';
 import notview from '@/assets/input/not-view.png';
 import view from '@/assets/input/view.png';
-import ErrorMessage from '@/components/modals/ErrorMessage';
 
 const InputPassword = ({
   placeholder,

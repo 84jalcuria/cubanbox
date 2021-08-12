@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import user from '@/assets/input/user.png';
-import ErrorMessage from '@/components/modals/ErrorMessage';
 
 const InputUser = ({
   placeholder,
