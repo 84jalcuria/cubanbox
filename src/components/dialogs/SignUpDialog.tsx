@@ -52,6 +52,7 @@ const SignUpDialog = () => {
     } else {
       /*Here create profile record for user */
     }
+    toggleSignUpDialog(false);
     setLoading(false);
   };
 

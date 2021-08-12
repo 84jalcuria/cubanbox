@@ -42,6 +42,7 @@ const SignInDialog = () => {
     if (error) {
       setMessage({ type: 'error', content: error.message });
     }
+    toggleSignInDialog(false);
     setLoading(false);
   };
 
