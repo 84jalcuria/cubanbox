@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '@/context/user-context';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import hero from '@/assets/hero.jpg';
 import Title from '@/components/ui/Title';
+import { GetProfile } from '@/utils/supabaseProfile';
+import ProfileCard from '@/components/ui/profile/ProfileCard';
+import { supabase } from '@/utils/supabaseClient';
 
 export default function Profile() {
   const router = useRouter();
@@ -11,6 +14,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!user) {
+      console.log('adfasfafsafsd');
       router.replace('/');
     }
   }, [user]);
@@ -34,18 +38,28 @@ export default function Profile() {
       {/*Profile Section*/}
       <section className='w-full h-[600px] bg-white'>
         {/*TODO: AVATAR*/}
-        <div className='flex flex-col justify-center items-start space-y-2'>
-          <div className='w-20 h-20 border-gray-900 border-4 rounded-full mt-8 ml-8' />
-          <div className='mt-8 ml-8'>
-            <h1 className='text-gray-900 text-xl font-extrabold uppercase leading-5'>
-              Huracan
-            </h1>
-            <h1 className='text-gray-900 text-sm font-medium tracking-tighter'>
-              84jalcuria@gmail.com
-            </h1>
-          </div>
-        </div>
       </section>
     </div>
   );
 }
+
+/*export const getServerSideProps = async ({ req }) => {
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+  if (!user) {
+    console.log('Not user');
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  const { profile, error } = await GetProfile(user.id);
+
+  return {
+    props: {
+      error,
+      profile,
+    },
+  };
+};*/

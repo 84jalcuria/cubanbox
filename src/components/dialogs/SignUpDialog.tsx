@@ -8,6 +8,8 @@ import InputPasssword from '@/components/dialogs/InputPassword';
 import ErrorMessage from '@/components/dialogs/ErrorMessage';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useUser } from '@/context/user-context';
+import { CreateProfile, ExistUserName } from '@/utils/supabaseProfile';
+//import { supabase } from '@/utils/supabaseClient';
 
 interface Message {
   type: string;
@@ -22,10 +24,11 @@ interface FormData {
 }
 
 const SignUpDialog = () => {
-  const { user } = useUser();
+  const router = useRouter();
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);
-  const router = useRouter();
+
   const { signUp } = useUser();
   const {
     register,
@@ -34,11 +37,9 @@ const SignUpDialog = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  /*Watching for user*/
   useEffect(() => {
-    if (user) {
-      router.replace('/profile');
-    }
+    if (user) router.replace('/profile');
+    return () => toggleSignUpDialog(false);
   }, [user]);
 
   /*--------Submit Callback-----------*/
@@ -46,14 +47,43 @@ const SignUpDialog = () => {
     const { email, username, password, sex } = data;
     setLoading(true);
     setMessage(null);
-    const { error, user } = await signUp({ email, password });
+    /*Check if USERNAME exists*/
+    const { exist, error } = await ExistUserName(username);
+
     if (error) {
       setMessage({ type: 'error', content: error.message });
+      setLoading(false);
     } else {
-      /*Here create profile record for user */
+      if (exist) {
+        setMessage({
+          type: 'error',
+          content: 'Este nombre de usuario ya existe',
+        });
+        setLoading(false);
+      } else {
+        /*SignUp*/
+        const { error, user } = await signUp({ email, password });
+        if (error) {
+          setMessage({ type: 'error', content: error.message });
+          setLoading(false);
+        } else {
+          /*Create Profiel*/
+          const error = await CreateProfile({
+            id: user.id,
+            email,
+            username,
+            sex,
+          });
+          if (error) {
+            setMessage({ type: 'error', content: error.message });
+            setLoading(false);
+            /*TODO: Delete user from users.auth and SignOut*/
+          } else {
+            setUser(user);
+          }
+        }
+      }
     }
-    toggleSignUpDialog(false);
-    setLoading(false);
   };
 
   return (

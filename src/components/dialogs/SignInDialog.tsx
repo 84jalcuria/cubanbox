@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { toggleSignInDialog } from '@/state/dialog';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useUser } from '@/context/user-context';
-import { useRouter } from 'next/router';
 import InputEmail from '@/components/dialogs/InputEmail';
 import InputPasssword from '@/components/dialogs/InputPassword';
 import ButtonSignIn from '@/components/dialogs/ButtonSignIn';
 import ErrorMessage from '@/components/dialogs/ErrorMessage';
+import { useRouter } from 'next/router';
 
 interface Message {
   type: string;
@@ -18,31 +18,40 @@ interface FormData {
 }
 
 const SignInDialog = () => {
+  const [user, setUser] = useState(null);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);
-  const { user, signIn } = useUser();
-  const router = useRouter();
+  const { signIn } = useUser();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
+  /*useEffect(() => {
+    return () => toggleSignInDialog(false);
+  }, []);*/
+
   useEffect(() => {
     if (user) {
+      console.log('user');
       router.replace('/profile');
     }
+    return () => toggleSignInDialog(false);
   }, [user]);
 
   const handleSignIn: SubmitHandler<FormData> = async (data: FormData) => {
     const { email, password } = data;
     setLoading(true);
     setMessage(null);
-    const { error } = await signIn({ email, password });
+    const { error, user } = await signIn({ email, password });
+    console.log(user);
     if (error) {
       setMessage({ type: 'error', content: error.message });
+    } else {
+      setUser(user);
     }
-    toggleSignInDialog(false);
     setLoading(false);
   };
 

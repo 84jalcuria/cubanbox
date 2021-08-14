@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/user-context';
 import Button from '@/components/ui/navbar/ButtonNavBarDesktop';
-import { toggleSignInDialog } from '@/state/dialog';
+import { toggleSignInDialog, toggleSignUpDialog } from '@/state/dialog';
 
 const NavBarDesktop = () => {
   const router = useRouter();
@@ -21,7 +21,13 @@ const NavBarDesktop = () => {
         </button>
       ) : (
         <>
-          <button type='button' onClick={() => signOut()}>
+          <button
+            type='button'
+            onClick={() => {
+              toggleSignUpDialog(false);
+              signOut();
+            }}
+          >
             <Button caption={'cerrar sesion'} fontsize={'text-base'} />
           </button>
           <button type='button' onClick={() => router.replace('/profile')}>
