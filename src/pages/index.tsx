@@ -24,10 +24,16 @@ export default function Home() {
   const [isOpenSignInDialog] = useSignInDialog();
 
   useEffect(() => {
-    if (user) {
+    if (user && !isOpenSignInDialog) {
       router.replace('/profile');
     }
-  }, [user]);
+  }, [user, isOpenSignInDialog]);
+
+  useEffect(() => {
+    if (user && !isOpenSignUpDialog) {
+      router.replace('/profile');
+    }
+  }, [user, isOpenSignUpDialog]);
 
   return (
     <>

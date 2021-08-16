@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import image from 'next/image';
 
 interface avatarProps {
   imageUrl: string | null;
@@ -9,18 +9,18 @@ interface avatarProps {
 
 const Avatar = ({
   imageUrl,
-  width = 40,
-  height = 40,
+  width = 97,
+  height = 97,
   contrast = false,
 }: avatarProps) => {
   return (
-    <>
+    <div className='rounded-full overflow-hidden' style={{ height, width }}>
       {/*Placeholder*/}
       {!imageUrl && (
         <svg
           className={`${
             contrast ? 'text-white' : 'text-[#262C34]'
-          }  w-28 h-28 `}
+          } transform scale-125`}
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 20 20'
           fill='currentColor'
@@ -32,26 +32,18 @@ const Avatar = ({
           />
         </svg>
       )}
-      {/*TODO: Image from source*/}
       {imageUrl && (
-        <div className='w-28 h-28 rounded-full overflow-hidden bg-green-400'>
-          <Image
-            src={imageUrl}
-            alt='hero picture'
-            layout='fill'
-            objectFit='cover'
-          />
-        </div>
+        <img src={imageUrl} alt='' className=' w-full h-full object-cover' />
       )}
-    </>
+    </div>
   );
 };
 
 export default Avatar;
 
 /*
-
-
-
-
-*/
+  
+  
+  
+  
+  */

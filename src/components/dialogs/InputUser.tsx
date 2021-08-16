@@ -9,12 +9,13 @@ const InputUser = ({
   required,
   error,
   pattern,
+  minLength,
 }) => {
   return (
     <div className='relative w-full flex flex-col justify-center items-start'>
       <input
         type='text'
-        {...register(label, { required, pattern })}
+        {...register(label, { required, pattern, minLength })}
         disabled={disabled}
         placeholder={placeholder}
         className={`w-full py-2 px-12 bg-transparent focus:outline-none border-[1px] ${

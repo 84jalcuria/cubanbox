@@ -5,3 +5,6 @@ export const [useSignUpDialog, toggleSignUpDialog] =
 
 export const [useSignInDialog, toggleSignInDialog] =
   createGalactic<boolean>(false);
+
+export const [useEditProfileDialog, toggleEditProfileDialog] =
+  createGalactic<boolean>(false);

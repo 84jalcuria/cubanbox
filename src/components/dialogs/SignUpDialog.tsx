@@ -9,7 +9,6 @@ import ErrorMessage from '@/components/dialogs/ErrorMessage';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useUser } from '@/context/user-context';
 import { CreateProfile, ExistUserName } from '@/utils/supabaseProfile';
-//import { supabase } from '@/utils/supabaseClient';
 
 interface Message {
   type: string;
@@ -35,18 +34,18 @@ const SignUpDialog = () => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ mode: 'onChange' });
 
   useEffect(() => {
-    if (user) router.replace('/profile');
-    return () => toggleSignUpDialog(false);
+    if (user) toggleSignUpDialog(false);
   }, [user]);
 
-  /*--------Submit Callback-----------*/
+  /*--------Handle Submit Callback-----------*/
   const handleSignUp: SubmitHandler<FormData> = async (data: FormData) => {
     const { email, username, password, sex } = data;
     setLoading(true);
     setMessage(null);
+
     /*Check if USERNAME exists*/
     const { exist, error } = await ExistUserName(username);
 
@@ -55,19 +54,22 @@ const SignUpDialog = () => {
       setLoading(false);
     } else {
       if (exist) {
+        /*Exists de username*/
         setMessage({
           type: 'error',
           content: 'Este nombre de usuario ya existe',
         });
         setLoading(false);
       } else {
+        /*Not Exists de username then*/
         /*SignUp*/
         const { error, user } = await signUp({ email, password });
         if (error) {
           setMessage({ type: 'error', content: error.message });
           setLoading(false);
         } else {
-          /*Create Profiel*/
+          /*SIGNUP success then*/
+          /*Create Profile*/
           const error = await CreateProfile({
             id: user.id,
             email,
@@ -115,7 +117,7 @@ const SignUpDialog = () => {
               />
             </svg>
           </button>
-          {/*--------------------------------------------------------*/}
+          {/*-----------------------FORM---------------------------------*/}
           <form
             onSubmit={handleSubmit(handleSignUp)}
             className='w-full px-4 pb-4 flex flex-col justify-between items-stretch space-y-7'
@@ -155,6 +157,10 @@ const SignUpDialog = () => {
                 }}
                 pattern={{
                   value: /^[\dA-Za-z]+[\dA-Za-z\s]{1,50}$/,
+                }}
+                minLength={{
+                  value: 3,
+                  message: 'El usuario debe de tener mas de 3 caracteres',
                 }}
                 error={errors.username}
               />

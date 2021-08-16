@@ -6,8 +6,6 @@ import InputEmail from '@/components/dialogs/InputEmail';
 import InputPasssword from '@/components/dialogs/InputPassword';
 import ButtonSignIn from '@/components/dialogs/ButtonSignIn';
 import ErrorMessage from '@/components/dialogs/ErrorMessage';
-import { useRouter } from 'next/router';
-
 interface Message {
   type: string;
   content: string;
@@ -19,7 +17,6 @@ interface FormData {
 
 const SignInDialog = () => {
   const [user, setUser] = useState(null);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);
   const { signIn } = useUser();
@@ -27,26 +24,20 @@ const SignInDialog = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
-
-  /*useEffect(() => {
-    return () => toggleSignInDialog(false);
-  }, []);*/
+  } = useForm<FormData>({ mode: 'onChange' });
 
   useEffect(() => {
     if (user) {
-      console.log('user');
-      router.replace('/profile');
+      toggleSignInDialog(false);
     }
-    return () => toggleSignInDialog(false);
   }, [user]);
 
   const handleSignIn: SubmitHandler<FormData> = async (data: FormData) => {
     const { email, password } = data;
     setLoading(true);
     setMessage(null);
+    /*SIGNIN*/
     const { error, user } = await signIn({ email, password });
-    console.log(user);
     if (error) {
       setMessage({ type: 'error', content: error.message });
     } else {
