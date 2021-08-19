@@ -11,19 +11,11 @@ interface profileCardProps {
 
 const ProfileCard = ({ profile }: profileCardProps) => {
   return (
-    <div className='relative grid grid-cols-2 gap-x-6 justify-items-start items-center p-5'>
-      {/*--------------------------Profile Sex-----------------------------*/}
-      <div className='absolute top-7 left-28 w-6 h-6 bg-[#262C34] rounded-full flex justify-center items-center '>
-        {profile?.sex === 'male' ? (
-          <h1 className='uppercase text-white text-xs font-bold'>m</h1>
-        ) : (
-          <h1 className='uppercase text-white text-xs font-bold'>f</h1>
-        )}
-      </div>
-      <Avatar imageUrl={profile?.avatar_url} width={80} height={80} />
+    <div className='relative grid grid-cols-2 gap-x-6 gap-y-3 justify-items-start items-center p-8'>
+      <Avatar urlKey={profile?.avatar_url} size={100} />
       <LevelCard level={profile?.fitness_level} />
       {/*--------------------Email and UserName-------------------------------*/}
-      <div className='ml-4 max-w-[165px]'>
+      <div className='max-w-[165px]'>
         <div className='text-[#262C34] text-xl font-extrabold uppercase tracking-tighter leading-5 truncate'>
           {profile?.username}
         </div>

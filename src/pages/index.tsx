@@ -25,13 +25,13 @@ export default function Home() {
 
   useEffect(() => {
     if (user && !isOpenSignInDialog) {
-      router.replace('/profile');
+      router.replace('/box');
     }
   }, [user, isOpenSignInDialog]);
 
   useEffect(() => {
     if (user && !isOpenSignUpDialog) {
-      router.replace('/profile');
+      router.replace('/box');
     }
   }, [user, isOpenSignUpDialog]);
 

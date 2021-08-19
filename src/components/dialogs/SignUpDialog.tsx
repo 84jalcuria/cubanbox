@@ -1,6 +1,5 @@
 import { toggleSignUpDialog } from '@/state/dialog';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import ButtonSignUp from '@/components/dialogs/ButtonSignUp';
 import InputEmail from '@/components/dialogs/InputEmail';
 import InputUser from '@/components/dialogs/InputUser';
@@ -23,7 +22,6 @@ interface FormData {
 }
 
 const SignUpDialog = () => {
-  const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);

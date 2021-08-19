@@ -28,6 +28,15 @@ export const GetProfile = async (
   return { error: supabaseError, data: supabaseProfile };
 };
 
+export const UpdateProfile = async (
+  updates: Profile
+): Promise<{ error: PostgrestError | null }> => {
+  const { error } = await supabase
+    .from('profiles')
+    .upsert(updates, { returning: 'minimal' });
+  return { error };
+};
+
 interface Exist {
   exist: boolean;
   error: PostgrestError;

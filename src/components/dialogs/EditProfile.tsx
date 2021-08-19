@@ -8,15 +8,25 @@ import { useForm } from 'react-hook-form';
 import LevelCard from '@/components/ui/profile/LevelCard';
 import TopLevelCard from '@/components/ui/profile/TopLevelCard';
 import InputUser from '@/components/dialogs/InputUser';
+import ErrorMessage from '@/components/dialogs/ErrorMessage';
+import { supabase } from '@/utils/supabaseClient';
 
+interface Message {
+  type: string;
+  content: string;
+}
 interface editProfileProps {
   profile: Profile;
 }
 
 const EditProfile = ({ profile }: editProfileProps) => {
   const [loading, setLoading] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url);
+  const [uploading, setUploading] = useState(false);
+  const [message, setMessage] = useState<Message | null>(null);
   const [username, setUsername] = useState(profile?.username);
+  const [avatarObjectUrl, setAvatarObjectUrl] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url);
+
   const {
     register,
     handleSubmit,
@@ -25,20 +35,69 @@ const EditProfile = ({ profile }: editProfileProps) => {
   } = useForm({ mode: 'onChange' });
 
   useEffect(() => {
+    /*Set Value in username input*/
     setValue('username', profile?.username);
   }, []);
+
+  useEffect(() => {
+    /*Download image */
+    if (avatarUrl) {
+      downloadAvatar(avatarUrl);
+    }
+  }, [avatarUrl]);
+
+  const downloadAvatar = async (path) => {
+    const { data: file, error } = await supabase.storage
+      .from('avatars')
+      .download(path);
+    if (error) {
+      /*TODO delete this line becouse if not apear it is becouse is not there*/
+      setMessage({ type: 'error', content: error.message });
+    } else {
+      /*TODO maybe public url*/
+      const objectUrl = URL.createObjectURL(file);
+      console.log(objectUrl);
+      setAvatarObjectUrl(objectUrl);
+    }
+  };
+
+  const UploadAvatar = async (e) => {
+    e.preventDefault();
+    if (e.target.files[0] !== undefined) {
+      const file = e.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${profile?.id}.${fileExt}`;
+      //const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+      setUploading(true);
+      setMessage(null);
+      /*Delete avatar if exits*/
+      console.log(avatarUrl);
+      if (avatarUrl) {
+        console.log('here');
+        const { error: removeError } = await supabase.storage
+          .from('avatars')
+          .remove([avatarUrl]);
+        if (removeError)
+          setMessage({ type: 'error', content: removeError.message });
+      }
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+      if (uploadError) {
+        setMessage({ type: 'error', content: uploadError.message });
+      } else {
+        setAvatarUrl(filePath);
+      }
+      setUploading(false);
+    } else {
+      window.alert('not file');
+    }
+  };
 
   const inputAvatarRegister = register('avatar');
 
   const handleEditProfile = (data) => {};
-
-  const handleAvatarOnChange = (e) => {
-    e.preventDefault();
-    if (e.target.files[0] !== undefined) {
-      const url = URL.createObjectURL(e.target.files[0]);
-      setAvatarUrl(url);
-    }
-  };
 
   return (
     <div className='fixed z-50 inset-0 bg-gray-800/40 overflow-auto flex justify-center items-center'>
@@ -77,14 +136,19 @@ const EditProfile = ({ profile }: editProfileProps) => {
           <div className='grid grid-cols-2 justify-items-center items-center gap-x-6 gap-y-4 '>
             {/*------------------Avatar---------------------------*/}
             <div className='relative flex flex-col justify-center items-start'>
-              <Avatar imageUrl={avatarUrl} contrast={true} />
+              {/*
+              <Avatar
+                imageUrl={avatarObjectUrl}
+                contrast={true}
+                loading={uploading}
+              />*/}
               {/*-------------Pick Avatar Button-------------------*/}
               <label htmlFor='avatar'>
                 <input
                   {...inputAvatarRegister}
                   onChange={(e) => {
                     inputAvatarRegister.onChange(e);
-                    handleAvatarOnChange(e);
+                    UploadAvatar(e);
                   }}
                   type='file'
                   id='avatar'
@@ -103,6 +167,7 @@ const EditProfile = ({ profile }: editProfileProps) => {
               <div className='text-white text-xl font-extrabold uppercase tracking-tighter leading-5 truncate'>
                 {username}
               </div>
+
               <div className='text-white text-sm font-medium tracking-tighter truncate'>
                 {profile?.email}
               </div>
@@ -128,6 +193,11 @@ const EditProfile = ({ profile }: editProfileProps) => {
             }}
             error={errors.username}
           />
+          {/*---------------Errors Messages---------------------------*/}
+          {message?.type === 'error' && (
+            <ErrorMessage fontsize='text-sm' message={message.content} />
+          )}
+
           {/*---------------------Edit Button-----------------------*/}
           <div className='w-full pt-2'>
             <ButtonEditProfile disabled={loading} />
