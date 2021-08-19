@@ -51,7 +51,7 @@ const SideBar = ({ onClose }: sideBarProps) => {
             />
           ) : (
             <ButtonNavBarMobile
-              caption={'profile'}
+              caption={'box'}
               fontsize={'text-base'}
               src={profile}
               onClose={onClose}
@@ -79,7 +79,7 @@ const SideBar = ({ onClose }: sideBarProps) => {
           />
           {user ? (
             <ButtonNavBarMobile
-              caption={'cerrar sesion'}
+              caption={'abandonar'}
               fontsize={'text-base'}
               src={closesession}
               onClose={() => {
@@ -89,7 +89,7 @@ const SideBar = ({ onClose }: sideBarProps) => {
             />
           ) : (
             <ButtonNavBarMobile
-              caption={'iniciar sesion'}
+              caption={'iniciar box'}
               fontsize={'text-base'}
               src={initsession}
               onClose={() => {

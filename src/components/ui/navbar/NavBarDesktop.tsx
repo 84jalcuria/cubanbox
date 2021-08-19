@@ -17,7 +17,7 @@ const NavBarDesktop = () => {
       <Button caption={'contactos'} fontsize={'text-base'} />
       {!user ? (
         <button type='button' onClick={() => toggleSignInDialog(true)}>
-          <Button caption={'iniciar sesion'} fontsize={'text-base'} />
+          <Button caption={'iniciar box'} fontsize={'text-base'} />
         </button>
       ) : (
         <>
@@ -28,14 +28,10 @@ const NavBarDesktop = () => {
               signOut();
             }}
           >
-            <Button caption={'cerrar sesion'} fontsize={'text-base'} />
+            <Button caption={'abandonar'} fontsize={'text-base'} />
           </button>
-          <button type='button' onClick={() => router.replace('/profile')}>
-            <Button
-              caption={'profile'}
-              fontsize={'text-base'}
-              selected={true}
-            />
+          <button type='button' onClick={() => router.replace('/box')}>
+            <Button caption={'box'} fontsize={'text-base'} selected={true} />
           </button>
         </>
       )}
