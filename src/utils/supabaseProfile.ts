@@ -31,9 +31,10 @@ export const GetProfile = async (
 export const UpdateProfile = async (
   updates: Profile
 ): Promise<{ error: PostgrestError | null }> => {
+  const data = { ...updates, updated_at: new Date() };
   const { error } = await supabase
     .from('profiles')
-    .upsert(updates, { returning: 'minimal' });
+    .upsert(data, { returning: 'minimal' });
   return { error };
 };
 

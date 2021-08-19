@@ -7,7 +7,7 @@ import Title from '@/components/ui/Title';
 import { GetProfile } from '@/utils/supabaseProfile';
 import ProfileCard from '@/components/ui/profile/ProfileCard';
 //import { supabase } from '@/utils/supabaseClient';
-import EditProfile from '@/components/dialogs/EditProfile1';
+import EditProfile from '@/components/dialogs/EditProfile';
 import { useEditProfileDialog } from '@/state/dialog';
 import Profile from '@/models/Profile';
 import ProfileCardSkeleton from '@/components/skeleton/ProfileCardSkeleton';
